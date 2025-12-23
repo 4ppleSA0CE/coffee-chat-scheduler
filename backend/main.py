@@ -11,6 +11,7 @@ from models import Booking
 # Import routers
 from routes.auth import router as auth_router
 from routes.test import router as test_router
+from routes.availability import router as availability_router
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -22,6 +23,7 @@ app = FastAPI(
 # Include routers
 app.include_router(auth_router)
 app.include_router(test_router)
+app.include_router(availability_router)
 
 
 @app.get("/")
