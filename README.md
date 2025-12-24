@@ -97,11 +97,6 @@ cofee-chat-scheduler/
 │   ├── tailwind.config.js       # Tailwind CSS configuration
 │   └── postcss.config.js      # PostCSS configuration
 │
-├── ARCHITECTURE.md            # System architecture documentation
-├── PHASE1_MVP.md             # MVP implementation plan
-├── TICKETS.md                # Development tickets and tasks
-├── TIME_FORMAT.md            # Time format documentation
-├── STARTUP.md                # Startup guide
 └── README.md                 # This file
 ```
 
