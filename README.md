@@ -1,6 +1,6 @@
 # Coffee Chat Scheduler ☕
 
-A single-tenant web application that allows visitors to book time slots on your personal Google Calendar. Built as a learning project with modern web technologies.
+A single-tenant web application that allows visitors to book time slots on my personal Google Calendar.
 
 
 ## 📋 Table of Contents
@@ -17,30 +17,29 @@ A single-tenant web application that allows visitors to book time slots on your 
 
 ## ✨ Features
 
-- 📅 View available time slots from your Google Calendar
+- 📅 View available time slots from my Google Calendar
 - 🎯 Book appointments that automatically create Google Calendar events
 - 🔐 Secure OAuth 2.0 authentication with Google
 - 💾 Persistent booking storage in PostgreSQL database
 - 🎨 Modern, responsive UI built with React and Tailwind CSS
-- ⚡ Fast development experience with Vite
 - 🌍 Timezone-aware scheduling
 
 ## 🛠 Tech Stack
 
 ### Frontend
 
-- **React 19.2.0** - Modern UI library for building interactive user interfaces
-- **Vite 7.2.4** - Next-generation frontend build tool for fast development and optimized production builds
-- **Tailwind CSS 3.4.19** - Utility-first CSS framework for rapid UI development
-- **PostCSS 8.5.6** - CSS transformation tool with autoprefixer support
-- **ESLint 9.39.1** - Code linting and quality assurance
+- **React** - Modern UI library for building interactive user interfaces
+- **Vite** - Next-generation frontend build tool for fast development and optimized production builds
+- **Tailwind CSS** - Utility-first CSS framework for rapid UI development
+- **PostCSS** - CSS transformation tool with autoprefixer support
+- **ESLint** - Code linting and quality assurance
 - **React Hooks** - Modern React patterns for state management and side effects
 
 ### Backend
 
 - **Python 3.13** - Programming language
-- **FastAPI** - Modern, fast (high-performance) web framework for building APIs with Python
-- **Uvicorn** - Lightning-fast ASGI server implementation
+- **FastAPI** - web framework for building APIs with Python
+- **Uvicorn** - ASGI server implementation
 - **SQLModel** - SQL databases in Python, designed for simplicity, compatibility, and robustness
 - **Pydantic** - Data validation using Python type annotations
 - **psycopg2-binary** - PostgreSQL adapter for Python
@@ -55,22 +54,7 @@ A single-tenant web application that allows visitors to book time slots on your 
 
 ### Database
 
-- **Supabase (PostgreSQL)** - Managed PostgreSQL database with generous free tier
-  - Relational database for storing booking records
-  - Robust data integrity and ACID compliance
-
-### Development Tools
-
-- **ESLint** - JavaScript/TypeScript linter
-- **Autoprefixer** - CSS vendor prefixing
-- **Vite Plugin React** - React support for Vite
-
-### Deployment
-
-- **Vercel** - Serverless deployment platform for both frontend and backend
-  - Automatic deployments from Git
-  - Edge network for global performance
-  - Serverless functions for backend API
+- **Supabase (PostgreSQL)** - Relational database for storing booking records
 
 ## 📁 Project Structure
 
