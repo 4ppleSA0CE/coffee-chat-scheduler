@@ -25,9 +25,11 @@ app = FastAPI(
 
 # Configure CORS
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
+# Handle both single URL and comma-separated URLs for multiple environments
+allowed_origins = [origin.strip() for origin in FRONTEND_URL.split(",")]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
