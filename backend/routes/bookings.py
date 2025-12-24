@@ -127,13 +127,6 @@ def validate_time_slot(start_time: datetime, end_time: datetime) -> None:
             status_code=400,
             detail=f"Bookings must end by {WORKING_HOURS_END}:00."
         )
-    
-    # Check weekday (Monday = 0, Friday = 4)
-    if start_time.weekday() > 4:
-        raise HTTPException(
-            status_code=400,
-            detail="Bookings are only available Monday through Friday."
-        )
 
 
 def is_slot_available(start_time: datetime, end_time: datetime) -> bool:

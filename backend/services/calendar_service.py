@@ -150,6 +150,14 @@ def create_calendar_event(
             'attendees': [
                 {'email': attendee_email}
             ],
+            'conferenceData': {
+                'createRequest': {
+                    'requestId': f"{attendee_email}-{start_time_str}",
+                    'conferenceSolutionKey': {
+                        'type': 'hangoutsMeet'
+                    }
+                }
+            },
             'reminders': {
                 'useDefault': False,
                 'overrides': [
@@ -159,10 +167,11 @@ def create_calendar_event(
             }
         }
         
-        # Insert event into calendar
+        # Insert event into calendar with conferenceData
         created_event = service.events().insert(
             calendarId='primary',
             body=event,
+            conferenceDataVersion=1,  # Required to create Google Meet link
             sendUpdates='all'  # Send email notifications to attendees
         ).execute()
         
