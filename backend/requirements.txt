@@ -8,3 +8,4 @@ google-api-python-client
 pydantic
 sqlmodel
 psycopg2-binary
+pydantic[email]

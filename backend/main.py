@@ -12,6 +12,7 @@ from models import Booking
 from routes.auth import router as auth_router
 from routes.test import router as test_router
 from routes.availability import router as availability_router
+from routes.bookings import router as bookings_router
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -24,6 +25,7 @@ app = FastAPI(
 app.include_router(auth_router)
 app.include_router(test_router)
 app.include_router(availability_router)
+app.include_router(bookings_router)
 
 
 @app.get("/")

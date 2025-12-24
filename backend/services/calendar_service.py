@@ -3,7 +3,7 @@ Calendar service for querying Google Calendar events
 """
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 from googleapiclient.errors import HttpError
 from services.google_auth import get_calendar_service
 from config import TIMEZONE
@@ -83,4 +83,93 @@ def get_events_for_date(date: datetime) -> List[dict]:
         raise Exception(f"Google Calendar API error: {str(e)}")
     except Exception as e:
         raise Exception(f"Error querying calendar: {str(e)}")
+
+
+def create_calendar_event(
+    attendee_name: str,
+    attendee_email: str,
+    start_time: datetime,
+    end_time: datetime,
+    notes: Optional[str] = None
+) -> str:
+    """
+    Create a Google Calendar event for a booking.
+    
+    Args:
+        attendee_name: Name of the attendee
+        attendee_email: Email address of the attendee
+        start_time: Start datetime of the event (timezone-aware)
+        end_time: End datetime of the event (timezone-aware)
+        notes: Optional notes/reason for the meeting
+    
+    Returns:
+        The Google Calendar event ID
+    
+    Raises:
+        Exception if event creation fails
+    """
+    try:
+        service = get_calendar_service()
+        
+        # Ensure datetimes are timezone-aware
+        if start_time.tzinfo is None:
+            local_tz = ZoneInfo(TIMEZONE)
+            start_time = start_time.replace(tzinfo=local_tz)
+        if end_time.tzinfo is None:
+            local_tz = ZoneInfo(TIMEZONE)
+            end_time = end_time.replace(tzinfo=local_tz)
+        
+        # Convert to UTC for Google Calendar API
+        start_utc = start_time.astimezone(ZoneInfo("UTC"))
+        end_utc = end_time.astimezone(ZoneInfo("UTC"))
+        
+        # Format as RFC3339 for Google Calendar API
+        start_time_str = start_utc.isoformat()
+        end_time_str = end_utc.isoformat()
+        
+        # Build event description
+        description_parts = [
+            f"Attendee: {attendee_name} ({attendee_email})"
+        ]
+        if notes:
+            description_parts.append(f"\nNotes: {notes}")
+        description = "\n".join(description_parts)
+        
+        # Create event body
+        event = {
+            'summary': f'Coffee Chat with {attendee_name}',
+            'description': description,
+            'start': {
+                'dateTime': start_time_str,
+                'timeZone': 'UTC'
+            },
+            'end': {
+                'dateTime': end_time_str,
+                'timeZone': 'UTC'
+            },
+            'attendees': [
+                {'email': attendee_email}
+            ],
+            'reminders': {
+                'useDefault': False,
+                'overrides': [
+                    {'method': 'email', 'minutes': 24 * 60},  # 1 day before
+                    {'method': 'popup', 'minutes': 15}  # 15 minutes before
+                ]
+            }
+        }
+        
+        # Insert event into calendar
+        created_event = service.events().insert(
+            calendarId='primary',
+            body=event,
+            sendUpdates='all'  # Send email notifications to attendees
+        ).execute()
+        
+        return created_event.get('id')
+        
+    except HttpError as e:
+        raise Exception(f"Google Calendar API error: {str(e)}")
+    except Exception as e:
+        raise Exception(f"Error creating calendar event: {str(e)}")
 
